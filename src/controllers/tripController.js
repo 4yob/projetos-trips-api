@@ -23,9 +23,9 @@ const getTrip = async (req, res) => {
 
 const createTrip = async (req, res) => {
     try {
-        const { title, start_date, end_date, created_at } = req.body;
+        const { title, place, country, start_date, end_date, created_at } = req.body;
         const photo = req.file ? req.file.filename : null;
-        const newTrip = await tripModel.createTrip(photo, title, start_date, end_date, created_at);
+        const newTrip = await tripModel.createTrip(photo, title, place, country, start_date, end_date, created_at);
         res.status(201).json(newTrip);
     } catch (error) {
         res.status(500).json({ message: "Erro ao criar viagem." });
@@ -36,14 +36,12 @@ const updateTrip = async (req, res) => {
     const fs = require('fs');
     const path = require('path');
     try {
-        const { title, start_date, end_date, created_at } = req.body;
+        const { title, place, country, start_date, end_date, created_at } = req.body;
         let photo = null;
-        // Buscar viagem atual para pegar foto antiga
         const trip = await tripModel.getTripById(req.params.id);
         if (!trip) {
             return res.status(404).json({ message: "Viagem não encontrada." });
         }
-        // Se veio nova foto, remove a antiga
         if (req.file) {
             photo = req.file.filename;
             if (trip.photo) {
@@ -55,7 +53,7 @@ const updateTrip = async (req, res) => {
         } else {
             photo = trip.photo;
         }
-        const updatedTrip = await tripModel.updateTrip(req.params.id, photo, title, start_date, end_date, created_at);
+        const updatedTrip = await tripModel.updateTrip(req.params.id, photo, title, place, country, start_date, end_date, created_at);
         res.json(updatedTrip);
     } catch (error) {
         res.status(500).json({ message: "Erro ao atualizar viagem." });
