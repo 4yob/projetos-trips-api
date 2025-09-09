@@ -20,7 +20,7 @@ const createTrip = async (photo, title, start_date, end_date, created_at) => {
 
 const updateTrip = async (id, photo, title, start_date, end_date, created_at) => {
     const result = await pool.query(
-        "UPDATE users SET name = $1, email = $2 WHERE id = $3 RETURNING *",
+        "UPDATE trips SET photo = $1, title = $2, start_date = $3, end_date = $4, created_at = $5 WHERE id = $6 RETURNING *",
         [photo, title, start_date, end_date, created_at, id]
     );
     return result.rows[0];

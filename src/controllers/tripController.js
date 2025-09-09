@@ -33,13 +33,29 @@ const createTrip = async (req, res) => {
 };
 
 const updateTrip = async (req, res) => {
+    const fs = require('fs');
+    const path = require('path');
     try {
         const { title, start_date, end_date, created_at } = req.body;
-        const photo = req.file ? req.file.filename : null;
-        const updatedTrip = await tripModel.updateTrip(req.params.id, photo, title, start_date, end_date, created_at );
-        if (!updatedTrip) {
+        let photo = null;
+        // Buscar viagem atual para pegar foto antiga
+        const trip = await tripModel.getTripById(req.params.id);
+        if (!trip) {
             return res.status(404).json({ message: "Viagem não encontrada." });
         }
+        // Se veio nova foto, remove a antiga
+        if (req.file) {
+            photo = req.file.filename;
+            if (trip.photo) {
+                const oldPhotoPath = path.join(__dirname, '../../uploads/', trip.photo);
+                if (fs.existsSync(oldPhotoPath)) {
+                    fs.unlinkSync(oldPhotoPath);
+                }
+            }
+        } else {
+            photo = trip.photo;
+        }
+        const updatedTrip = await tripModel.updateTrip(req.params.id, photo, title, start_date, end_date, created_at);
         res.json(updatedTrip);
     } catch (error) {
         res.status(500).json({ message: "Erro ao atualizar viagem." });

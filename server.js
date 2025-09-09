@@ -4,9 +4,10 @@ const cors = require("cors");
 const path = require("path");
 const tripRoutes = require("./src/routes/tripRoutes");
 
+const app = express();
+
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-const app = express();
 app.use(cors());
 app.use(express.json());
 
