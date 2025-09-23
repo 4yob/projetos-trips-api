@@ -15,9 +15,9 @@ CREATE TABLE trips (
 
 INSERT INTO trips (photo, title, place, country, start_date, end_date, created_at) VALUES
 ('paris.jpg', 'Aventura em Paris', 'Paris', 'FR', '15/07/2021', '25/07/2021', NOW()),
-('ipanema.jpg', 'Vibras Cariocas', 'Ipanema', 'BR', '10/01/2021', '20/01/2021', NOW()),
+('ipanema.jpg', 'Vibes Cariocas', 'Ipanema', 'BR', '10/01/2021', '20/01/2021', NOW()),
 ('kyoto.jpg', 'Explorando Kyoto', 'Kyoto', 'JP', '05/11/2022', '18/11/2022', NOW()),
-('macchupicchu.jpg', 'Misterios Incas', 'Machu Picchu', 'PE', '22/03/2022', '30/03/2022', NOW()),
+('machupicchu.jpg', 'Misterios Incas', 'Machu Picchu', 'PE', '22/03/2022', '30/03/2022', NOW()),
 ('santorini.jpg', 'Charme Grego', 'Santorini', 'GR', '01/09/2023', '08/09/2023', NOW()),
 ('newyork.jpg', 'Aventura na Big Apple', 'Nova York', 'US', '12/05/2023', '20/05/2023', NOW()),
 ('barcelona.jpg', 'Cores da Catalunha', 'Barcelona', 'ES', '02/08/2024', '11/08/2024', NOW()),
