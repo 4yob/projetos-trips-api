@@ -10,18 +10,18 @@ const getTripById = async (id) => {
     return result.rows[0];
 };
 
-const createTrip = async (photo, title, place, country, start_date, end_date, created_at) => {
+const createTrip = async (photo, title, place, country, main_attractions, local_experience, start_date, end_date, is_favorite = false) => {
     const result = await pool.query(
-        "INSERT INTO trips (photo, title, place, country, start_date, end_date, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
-        [photo, title, place, country, start_date, end_date, created_at]
+        "INSERT INTO trips (photo, title, place, country, main_attractions, local_experience, start_date, end_date, is_favorite) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
+        [photo, title, place, country, main_attractions, local_experience, start_date, end_date, is_favorite]
     );
     return result.rows[0];
 };
 
-const updateTrip = async (id, photo, title, place, country, start_date, end_date, created_at) => {
+const updateTrip = async (id, photo, title, place, country, main_attractions, local_experience, start_date, end_date, is_favorite) => {
     const result = await pool.query(
-        "UPDATE trips SET photo = $1, title = $2, place = $3, country = $4, start_date = $5, end_date = $6, created_at = $7 WHERE id = $8 RETURNING *",
-        [photo, title, place, country, start_date, end_date, created_at, id]
+        "UPDATE trips SET photo = $1, title = $2, place = $3, country = $4, main_attractions = $5, local_experience = $6, start_date = $7, end_date = $8, is_favorite = $9 WHERE id = $10 RETURNING *",
+        [photo, title, place, country, main_attractions, local_experience, start_date, end_date, is_favorite, id]
     );
     return result.rows[0];
 };
@@ -36,4 +36,34 @@ const deleteTrip = async (id) => {
     return { message: "Viagem deletada com sucesso." };
 };
 
-module.exports = { getTrips, getTripById, createTrip, updateTrip, deleteTrip };
+const getFavoriteTrips = async () => {
+    const result = await pool.query("SELECT * FROM trips WHERE is_favorite = true");
+    return result.rows;
+};
+
+const toggleFavorite = async (id) => {
+    const result = await pool.query(
+        "UPDATE trips SET is_favorite = NOT is_favorite WHERE id = $1 RETURNING *",
+        [id]
+    );
+    return result.rows[0];
+};
+
+const setFavorite = async (id, is_favorite) => {
+    const result = await pool.query(
+        "UPDATE trips SET is_favorite = $1 WHERE id = $2 RETURNING *",
+        [is_favorite, id]
+    );
+    return result.rows[0];
+};
+
+module.exports = { 
+    getTrips, 
+    getTripById, 
+    createTrip, 
+    updateTrip, 
+    deleteTrip,
+    getFavoriteTrips,
+    toggleFavorite,
+    setFavorite 
+};
