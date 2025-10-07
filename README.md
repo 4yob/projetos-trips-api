@@ -60,14 +60,34 @@ PORT=3000
 ### 4. Configure o banco de dados
 Execute o script SQL para criar o banco e as tabelas:
 ```bash
-# Acesse o PostgreSQL
-psql -U seu_usuario -d postgres
+CREATE DATABASE trips_db;
 
-# Execute o script de criação
-\i src/database/schema.sql
+\c trips_db;
 
-# Para adicionar favoritos em tabela existente (opcional)
-\i src/database/add_favorites.sql
+CREATE TABLE trips (
+    id SERIAL PRIMARY KEY,
+    photo TEXT,
+    title VARCHAR(100),
+    place VARCHAR(100),
+    country VARCHAR(100),
+    main_attractions TEXT,
+    local_experience TEXT,
+    start_date VARCHAR(10),
+    end_date VARCHAR(10),
+    is_favorite BOOLEAN DEFAULT FALSE
+);
+
+INSERT INTO trips (photo, title, place, country, main_attractions, local_experience, start_date, end_date, is_favorite) VALUES
+('paris.jpg', 'Aventura em Paris', 'Paris', 'FR', 'Torre Eiffel (especialmente a noite), o museu do Louvre, a majestosa Catedral de Notre-Dame (mesmo apos o incendio, sua imponencia permanece) e passeios romanticos pelo Rio Sena.', 'Perambular sem rumo em Saint-Germain-des-Pres, cheirar o croissant fresco das boulangeries e fazer um piquenique improvisado com vinho e queijos nos gramados perto da Torre foi realmente surreal. O charme esta no ritmo elegante dos parisienses.', '15/07/2021', '25/07/2021', false),
+('ipanema.jpg', 'Vibes Cariocas', 'Ipanema', 'BR', 'A propria Praia de Ipanema (e seu famoso Posto 9), assistir ao por do sol no Arpoador e visitar a Lagoa Rodrigo de Freitas para um fim de tarde relaxante.', 'Tomar uma agua de coco gelada na areia, ouvir o samba de roda vindo de algum quiosque e aproveitar a energia despreocupada e vibrante dos cariocas me deixaram tao tranquila que esqueci completamente dos meus problemas. As feiras de rua e os bares de boteco completaram o clima.', '10/01/2021', '20/01/2021', true),
+('kyoto.jpg', 'Explorando Kyoto', 'Kyoto', 'JP', 'O majestoso Kinkaku-ji (Pavilhao Dourado), a caminhada hipnotizante pelo Bosque de Bambu de Arashiyama e a area de Fushimi Inari-taisha com seus milhares de portoes torii.', 'Participar de uma tradicional cerimonia do cha, perambular pelas ruas historicas de Gion (o bairro das geishas) e me deliciar com o kaiseki, a culinaria tradicional da corte e algo que eu faria novamente. A experiencia e de total reverencia e paz.', '05/11/2022', '18/11/2022', false),
+('machupicchu.jpg', 'Misterios Incas', 'Machu Picchu', 'PE', 'A propria cidadela inca de Machu Picchu, as montanhas adjacentes Huayna Picchu e Montanha Machu Picchu (para vistas panoramicas), e o Templo do Sol e o Intihuatana Stone (relogios solares).', 'A sensacao indescritivel de ver a ruina surgir entre as nuvens ao nascer do sol. E um momento quase espiritual, de contemplacao silenciosa e profunda conexao com uma historia milenar. Respirar o ar puro dos Andes me fez sentir o misterio no ar.', '22/03/2022', '30/03/2022', false),
+('santorini.jpg', 'Charme Grego', 'Santorini', 'GR', 'O iconico por do sol de Oia, as vilas brancas de Fira e Imerovigli aninhadas na encosta da caldeira e as praias de areia vulcanica (como a Red Beach).', 'Perder-se nas ruelas labirinticas, descobrindo terracos escondidos e igrejas de cupula azul. Desfrutar da culinaria local, como tomatinis e fava, com um copo de vinho Assyrtiko da ilha. E um paraiso fotografico de paz e contemplacao, minha segunda casa!', '01/09/2023', '08/09/2023', true),
+('newyork.jpg', 'Aventura na Big Apple', 'Nova York', 'US', 'O espetaculo luminoso da Times Square, um passeio tranquilo pelo Central Park, a beleza da arquitetura no Rockefeller Center e a travessia historica da Ponte do Brooklyn.', 'Sentir o pulso da cidade no metro apressado, comer um street food classico, como um cachorro-quente de rua, e passar horas explorando as galerias de arte e as lojas vintage de Lower Manhattan ou a energia hipster do Brooklyn. Whats Up, NY city!', '12/05/2023', '20/05/2023', false),
+('barcelona.jpg', 'Cores da Catalunha', 'Barcelona', 'ES', 'A arquitetura fantastica da Sagrada Familia, o colorido e as vistas do Parque Guell, a agitacao da avenida La Rambla e o charme do antigo Bairro Gotico.', 'Passar a noite no bairro de El Born, provando uma variedade de tapas em pequenos bares com uma taca de cava ou sangria. O melhor e o almoco tardio seguido pela siesta e a energia que explode novamente a noite. Me senti como en casa.', '02/08/2024', '11/08/2024', true),
+('islandia.jpg', 'Terra do Gelo e Fogo', 'Islandia', 'IS', 'O circuito do Circulo Dourado (com a cascata Gullfoss e o geiser Strokkur), a Lagoa Azul (Blue Lagoon) e, claro, a busca pela espetacular Aurora Boreal.', 'A experiencia e de imersao total na natureza intocada. Dirigir por paisagens lunares, tomar um banho relaxante nas piscinas geotermicas e sentir a forca dos elementos. A hospitalidade dos islandeses, em contraste com a paisagem selvagem, e reconfortante.', '18/02/2024', '26/02/2024', false),
+('roma.jpg', 'Historia Romana', 'Roma', 'IT', 'O imponente Coliseu, o historico Forum Romano e o Monte Palatino, e jogar a moeda na barroca Fontana di Trevi.', 'Viver o dolce far niente em um cafe da praca. A melhor parte e jantar em uma trattoria simples no bairro de Trastevere, comendo um autentico Cacio e Pepe e ouvindo o barulho alegre dos locais. Caminhar por ruas estreitas e descobrir ruinas a cada esquina.', '10/10/2025', '17/10/2025', false),
+('bangkok.jpg', 'Encantos Tailandeses', 'Bangkok', 'TH', 'Os templos dourados do Grande Palacio e o Wat Arun, os barcos longos nos canais (khlongs) e o mercado flutuante de Damnoen Saduak.', 'O Street Food e o coracao da experiencia: provar Pad Thai e Mango Sticky Rice fresquinhos no calor da noite foram as minhas melhores decisoes. Alem de andar em um tuk-tuk pelo transito caotico e negociar nos mercados noturnos como o Asiatique The Riverfront e claro. E uma cidade de energia infinita e sabores exoticos.', '05/04/2025', '15/04/2025', true);
 ```
 
 ### 5. Execute a aplicação
@@ -88,25 +108,25 @@ A API estará disponível em `http://localhost:3000`
 
 ```
 projetos-trips-api/
-├── 📄 package.json          # Configurações e dependências do projeto
-├── 📄 server.js            # Arquivo principal do servidor
-├── 📄 .env                 # Variáveis de ambiente (não versionado)
-├── 📄 .gitignore          # Arquivos ignorados pelo Git
-├── 📄 README.md           # Documentação do projeto
-├── 📂 src/                # Código fonte da aplicação
-│   ├── 📂 config/         # Configurações
-│   │   ├── 📄 database.js # Conexão com PostgreSQL
-│   │   └── 📄 upload.js   # Configuração do Multer
-│   ├── 📂 controllers/    # Controladores (lógica de negócio)
+├── 📄 package.json               # Configurações e dependências do projeto
+├── 📄 server.js                  # Arquivo principal do servidor
+├── 📄 .env                       # Variáveis de ambiente (não versionado)
+├── 📄 .gitignore                 # Arquivos ignorados pelo Git
+├── 📄 README.md                  # Documentação do projeto
+├── 📂 src/                       # Código fonte da aplicação
+│   ├── 📂 config/                # Configurações
+│   │   ├── 📄 database.js        # Conexão com PostgreSQL
+│   │   └── 📄 upload.js          # Configuração do Multer
+│   ├── 📂 controllers/           # Controladores (lógica de negócio)
 │   │   └── 📄 tripController.js
-│   ├── 📂 models/         # Modelos (interação com banco)
+│   ├── 📂 models/                # Modelos (interação com banco)
 │   │   └── 📄 tripModel.js
-│   ├── 📂 routes/         # Definição das rotas
+│   ├── 📂 routes/                # Definição das rotas
 │   │   └── 📄 tripRoutes.js
-│   └── 📂 database/       # Scripts de banco de dados
-│       ├── 📄 schema.sql       # Criação de tabelas e dados
-│       └── 📄 add_favorites.sql # Script para adicionar favoritos
-└── 📂 uploads/            # Pasta para arquivos enviados
+│   └── 📂 database/              # Scripts de banco de dados
+│       ├── 📄 schema.sql         # Criação de tabelas e dados
+│       └── 📄 add_favorites.sql  # Script para adicionar favoritos
+└── 📂 uploads/                   # Pasta para arquivos enviados
     └── 📸 (imagens das viagens)
 ```
 
@@ -301,18 +321,6 @@ A API retorna erros padronizados:
 - `404` - Recurso não encontrado
 - `500` - Erro interno do servidor
 
-## 🤝 Contribuição
+## 👨‍💻 Autora
 
-1. Fork o projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
-
-## 📄 Licença
-
-Este projeto está sob a licença ISC. Veja o arquivo `package.json` para mais detalhes.
-
-## 👨‍💻 Autor
-
-**4yob** - [GitHub](https://github.com/4yob)
+**Alejandra Barros** - [4yob](https://github.com/4yob)
