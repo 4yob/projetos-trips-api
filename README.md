@@ -1,4 +1,4 @@
-# 🌍 Trips API - Sistema de Gerenciamento de Viagens
+# <img width="40" height="40" alt="image" src="https://github.com/user-attachments/assets/b876613f-5460-426a-aa6b-ebdd393ffc95" /> TRIPS.COM API - Sistema de Gerenciamento de Viagens
 
 Uma API RESTful completa para gerenciamento de viagens, permitindo criar, visualizar, editar, excluir e favoritar experiências de viagem com upload de fotos.
 
