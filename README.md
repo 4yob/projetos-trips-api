@@ -52,8 +52,8 @@ Crie um arquivo `.env` na raiz do projeto:
 DB_USER=seu_usuario_postgres
 DB_HOST=localhost
 DB_NAME=trips_db
-DB_PASSWORD=sua_senha
-DB_PORT=5432
+DB_PASSWORD=ds564 ou amods
+DB_PORT=5432 ou 7777
 PORT=3000
 ```
 
