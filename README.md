@@ -323,4 +323,11 @@ A API retorna erros padronizados:
 
 ## 👨‍💻 Autora
 
-**Alejandra Barros** - [4yob](https://github.com/4yob)
+**Alejandra Barros**
+- LinkedIn: [/in/barrosalejandra](https://www.linkedin.com/in/barrosalejandra/)
+- GitHub: [4yob](https://github.com/4yob)
+- Email: alejandra.barros@aluno.senai.br
+
+---
+
+⭐ **Se gostou e de alguma forma este projeto foi útil para você, considere dar uma estrela!**
